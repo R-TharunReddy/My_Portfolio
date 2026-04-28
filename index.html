@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tharun Reddy Ramigani — Digital Marketer</title>
+<meta name="description" content="Digital Marketer & Content Creator. 120K+ YouTube, $10K/mo Google Ads, Meta Ads, Web Development. Thunder Bay, ON.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+
+/* ╔═══════════════════════════════════════╗
+   ║  TOKENS                               ║
+   ╚═══════════════════════════════════════╝ */
+:root {
+  --ink:    #0A0A0F;
+  --paper:  #F4F2EE;
+  --mid:    #E8E5DF;
+  --red:    #E8261A;
+  --gold:   #F5A623;
+  --soft:   #999;
+  --muted:  #BBB;
+  --border: rgba(10,10,15,0.1);
+}
+
+/* ╔═══════════════════════════════════════╗
+   ║  BASE                                 ║
+   ╚═══════════════════════════════════════╝ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
+}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ╔═══════════════════════════════════════╗
+   ║  PRELOADER                            ║
+   ╚═══════════════════════════════════════╝ */
+#loader {
+  position: fixed; inset: 0; z-index: 9000;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+}
+.loader-inner {
+  text-align: center;
+}
+.loader-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+}
+.loader-name .l-word { display: inline-block; transform: translateY(110%); }
+.loader-name .l-red { color: var(--red); }
+.loader-line {
+  margin: 1.5rem auto 0;
+  width: 0; height: 2px;
+  background: var(--red);
+}
+
+/* ╔═══════════════════════════════════════╗
+   ║  CURSOR                               ║
+   ╚═══════════════════════════════════════╝ */
+#cur {
+  position: fixed; z-index: 8999; pointer-events: none;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--red);
+  transform: translate(-50%,-50%);
+  transition: width .15s, height .15s;
+  mix-blend-mode: multiply;
+}
+#cur-o {
+  position: fixed; z-index: 8998; pointer-events: none;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(232,38,26,0.4);
+  transform: translate(-50%,-50%);
+  transition: border-color .2s;
+}
+body.hov #cur { width: 16px; height: 16px; }
+body.hov #cur-o { width: 60px; height: 60px; border-color: rgba(232,38,26,0.7); }
+
+/* ╔═══════════════════════════════════════╗
+   ║  NAV                                  ║
+   ╚═══════════════════════════════════════╝ */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.8rem 5%;
+  transition: padding .4s, background .4s, box-shadow .4s;
+}
+#nav.s {
+  padding: 1rem 5%;
+  background: rgba(244,242,238,0.94);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 var(--border);
+}
+.n-logo {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 1rem; letter-spacing: 0;
+  color: var(--ink); text-decoration: none;
+}
+.n-logo b { color: var(--red); font-weight: 700; }
+
+.n-links { display: flex; gap: 2.5rem; list-style: none; }
+.n-links a {
+  font-size: 0.84rem; font-weight: 500;
+  color: var(--soft); text-decoration: none;
+  transition: color .2s;
+  position: relative;
+}
+.n-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 100%;
+  height: 1px; background: var(--red);
+  transition: right .3s cubic-bezier(.76,0,.24,1);
+}
+.n-links a:hover { color: var(--ink); }
+.n-links a:hover::after { right: 0; }
+
+.n-cta {
+  background: var(--ink); color: #fff !important;
+  padding: .5rem 1.3rem; border-radius: 100px;
+  font-weight: 600 !important; font-size: .83rem;
+  display: flex; align-items: center; gap: .4rem;
+  transition: background .2s, transform .2s;
+}
+.n-cta::after { display: none !important; }
+.n-cta:hover { background: var(--red) !important; color: #fff !important; transform: scale(1.03); }
+
+.n-ham { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.n-ham span { display: block; width: 22px; height: 1.5px; background: var(--ink); border-radius: 2px; transition: all .3s; }
+
+.mob-nav {
+  display: none; position: fixed; inset: 0; z-index: 499;
+  background: var(--ink); padding: 7rem 5% 3rem;
+  flex-direction: column; gap: 0;
+}
+.mob-nav.on { display: flex; }
+.mob-nav a {
+  font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,5vw,2.6rem);
+  font-weight: 700; color: #fff; text-decoration: none;
+  letter-spacing: 0; padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: color .2s;
+}
+.mob-nav a:hover { color: var(--red); }
+.mob-nav-close {
+  position: absolute; top: 2rem; right: 5%;
+  font-size: 2rem; color: #fff; cursor: none;
+  background: none; border: none; font-family: 'Playfair Display', serif;
+  font-weight: 800;
+}
+
+/* ╔═══════════════════════════════════════╗
+   ║  HERO                                 ║
+   ╚═══════════════════════════════════════╝ */
+#hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 45%;
+  align-items: stretch;
+  padding-top: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Left panel */
+.hero-l {
+  background: var(--ink);
+  display: flex; flex-direction: column;
+  justify-content: flex-start;
+  padding: max(9rem, 17vh) 6% 4rem 6%;
+  position: relative; overflow: hidden;
+}
+
+/* Big ghost letters behind */
+.hero-ghost {
+  position: absolute; top: -1rem; right: -1rem;
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(12rem, 26vw, 22rem);
+  letter-spacing: 0.01em; line-height: .9;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.07);
+  pointer-events: none; user-select: none;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: .7rem;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 2rem;
+  opacity: 0;
+}
+.hero-eyebrow-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--red); animation: hb 1.8s infinite;
+}
+@keyframes hb { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.6)} }
+
+.hero-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(3rem, 6.5vw, 8rem);
+  line-height: 1.05; letter-spacing: -0.01em;
+  color: #fff; margin-bottom: 2.5rem;
+  opacity: 0;
+}
+.hero-title .t-red { color: var(--red); }
+.hero-title .t-out {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.4);
+}
+
+.hero-desc {
+  font-size: .94rem; color: rgba(255,255,255,0.45);
+  max-width: 500px; line-height: 1.8;
+  margin-bottom: 2.5rem; opacity: 0;
+}
+
+.hero-ctas { display: flex; gap: .8rem; flex-wrap: wrap; opacity: 0; }
+
+.btn-red {
+  background: var(--red); color: #fff;
+  padding: .75rem 1.7rem; border-radius: 100px;
+  font-weight: 700; font-size: .88rem;
+  text-decoration: none; display: inline-flex;
+  align-items: center; gap: .4rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-red:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,38,26,.4);
+  color: #fff; text-decoration: none;
+}
+
+.btn-ghost-w {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.7);
+  padding: .75rem 1.7rem; border-radius: 100px;
+  font-weight: 600; font-size: .88rem;
+  text-decoration: none; display: inline-flex;
+  align-items: center; gap: .4rem;
+  transition: all .2s;
+}
+.btn-ghost-w:hover {
+  border-color: rgba(255,255,255,.4); color: #fff;
+  text-decoration: none;
+}
+
+/* Stats bar in hero */
+.hero-stats-bar {
+  display: flex; gap: 0;
+  margin-top: auto;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  opacity: 0;
+}
+.hs-item {
+  flex: 1; padding: 1.5rem 0 0;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.hs-item:last-child { border-right: none; }
+.hs-num {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  color: #fff; letter-spacing: 0;
+  line-height: 1.1; margin-bottom: .3rem;
+}
+.hs-num em { color: var(--red); font-style: normal; }
+.hs-lbl {
+  font-size: .7rem; color: rgba(255,255,255,.35);
+  text-transform: uppercase; letter-spacing: .1em; font-weight: 500;
+}
+
+/* Right panel — photo */
+.hero-r {
+  position: relative; overflow: visible;
+  background: #111;
+}
+.hero-r > img#heroImg {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  display: block; opacity: 0;
+  filter: grayscale(15%);
+  transition: filter .4s;
+}
+.hero-r > img#heroImg:hover { filter: grayscale(0%); }
+.hero-r-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--ink) 0%, transparent 35%);
+  pointer-events: none;
+}
+.hero-r-tag {
+  position: absolute; bottom: 2rem; right: 2rem;
+  background: var(--red); color: #fff;
+  padding: .5rem 1rem; border-radius: 100px;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.hero-r-float {
+  position: absolute; bottom: 3.5rem; left: -3rem;
+  width: 148px; z-index: 4;
+  background: #fff;
+  padding: 7px 7px 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.55);
+  transform: rotate(-5deg);
+  transition: transform .35s ease;
+  cursor: default;
+}
+.hero-r-float:hover { transform: rotate(0deg) scale(1.06); }
+.hero-r-float img {
+  width: 100%; height: 115px;
+  object-fit: cover; object-position: top center;
+  display: block;
+}
+.hero-r-float span {
+  display: block; font-size: .6rem; text-align: center;
+  padding: 6px 0 0; color: #555;
+  font-family: 'Playfair Display', serif; font-style: italic;
+}
+
+/* ╔═══════════════════════════════════════╗
+   ║  TICKER                               ║
+   ╚═══════════════════════════════════════╝ */
+.ticker {
+  background: var(--ink);
+  padding: 1rem 0; overflow: hidden;
+  position: relative; z-index: 2;
+}
+.ticker-track {
+  display: flex; width: max-content;
+  animation: tick 32s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.tick-item {
+  display: flex; align-items: center; gap: .8rem;
+  padding: 0 2rem; white-space: nowrap;
+  font-family: 'Playfair Display', serif; font-size: .75rem;
+  font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.4);
+}
+.tick-item em { color: var(--red); font-style: normal; }
+.tick-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+
+/* ╔═══════════════════════════════════════╗
+   ║  SECTION BASE                         ║
+   ╚═══════════════════════════════════════╝ */
+.sec { padding: 7rem 5%; position: relative; }
+.sec-inner { max-width: 1200px; margin: 0 auto; }
+
+.sec-eyebrow {
+  font-size: .7rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.sec-eyebrow::before {
+  content: ''; width: 20px; height: 1.5px; background: var(--red);
+  display: block;
+}
+
+.sec-h {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  letter-spacing: -0.01em; line-height: 1.15;
+  color: var(--ink); margin-bottom: 1rem;
+}
+
+.sec-p {
+  font-size: .96rem; color: var(--soft);
+  max-width: 460px; line-height: 1.8;
+}
+
+/* GSAP helpers */
+.g-up { opacity:0; transform:translateY(36px); }
+.g-fade { opacity:0; }
+.g-left { opacity:0; transform:translateX(-30px); }
+
+/* ╔═══════════════════════════════════════╗
+   ║  WORK / PROJECTS                      ║
+   ╚═══════════════════════════════════════╝ */
+#work { background: var(--paper); }
+
+.work-head {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 4rem; gap: 2rem; flex-wrap: wrap;
+}
+
+/* Case study grid */
+.work-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 1.5rem;
+}
+
+/* First card spans 2 cols */
+.work-card-featured { grid-column: span 2; }
+
+.work-card {
+  border-radius: 16px; overflow: hidden;
+  position: relative; cursor: none;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.work-card:hover { transform: translateY(-5px); }
+
+/* Card visual areas — pure CSS designed */
+.wc-visual {
+  height: 320px; position: relative;
+  overflow: hidden; display: flex;
+  align-items: flex-end; padding: 2rem;
+}
+.work-card-featured .wc-visual { height: 420px; }
+
+/* Each card has unique CSS gradient */
+.cv-1 { background: linear-gradient(135deg, #0D2137 0%, #1A3D5C 50%, #0D2137 100%); }
+.cv-2 { background: linear-gradient(135deg, #1A0800 0%, #3D1500 60%, #1A0800 100%); }
+.cv-3 { background: linear-gradient(135deg, #100A22 0%, #251550 60%, #100A22 100%); }
+.cv-4 { background: linear-gradient(135deg, #001510 0%, #003326 60%, #001510 100%); }
+.cv-5 { background: linear-gradient(135deg, #1A0008 0%, #3D0018 60%, #1A0008 100%); }
+.cv-6 { background: linear-gradient(135deg, #110F00 0%, #2E2800 60%, #110F00 100%); }
+
+/* Decorative circles on cards */
+.wc-visual::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 280px; height: 280px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.wc-visual::after {
+  content: '';
+  position: absolute; top: 40px; right: 40px;
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+
+.wc-big-num {
+  position: absolute; top: 2rem; left: 2rem;
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(4rem, 10vw, 8rem);
+  color: rgba(255,255,255,0.06);
+  letter-spacing: 0; line-height: 1.1;
+  pointer-events: none; user-select: none;
+}
+
+.wc-metrics {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.wc-m {
+  flex-shrink: 0;
+}
+.wc-m-val {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  color: #fff; letter-spacing: 0; line-height: 1.1;
+}
+.wc-m-val em { color: var(--gold); font-style: normal; }
+.wc-m-lbl {
+  font-size: .68rem; color: rgba(255,255,255,.4);
+  text-transform: uppercase; letter-spacing: .1em;
+  font-weight: 500; margin-top: .2rem;
+}
+
+/* Card body */
+.wc-body {
+  background: #fff; padding: 1.5rem 2rem 2rem;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+}
+.wc-cat {
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--red); margin-bottom: .5rem;
+}
+.wc-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: var(--ink); letter-spacing: 0;
+  line-height: 1.3; margin-bottom: .7rem;
+}
+.wc-desc {
+  font-size: .84rem; color: var(--soft); line-height: 1.7;
+}
+.wc-footer {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-top: 1.2rem;
+  flex-wrap: wrap; gap: .5rem;
+}
+.wc-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+.wc-tag {
+  background: var(--mid); color: var(--soft);
+  padding: .25rem .7rem; border-radius: 100px;
+  font-size: .7rem; font-weight: 600;
+}
+.wc-year { font-size: .78rem; color: var(--muted); font-weight: 500; }
+
+/* ╔═══════════════════════════════════════╗
+   ║  EXPERIENCE — sticky left panel       ║
+   ╚═══════════════════════════════════════╝ */
+#experience { background: var(--mid); }
+
+.exp-layout {
+  display: grid; grid-template-columns: 340px 1fr;
+  gap: 5rem; align-items: start;
+}
+.exp-left {
+  position: sticky; top: 8rem;
+}
+.exp-right { min-width: 0; }
+
+.exp-rows { display: flex; flex-direction: column; gap: 0; }
+
+.exp-row {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: 44px 1fr;
+  gap: 1.5rem;
+}
+.exp-row:last-child { border-bottom: 1px solid var(--border); }
+
+.exp-row-num {
+  font-family: 'Playfair Display', serif; font-size: .72rem;
+  font-weight: 800; color: var(--red);
+  letter-spacing: .1em; padding-top: .3rem;
+}
+.exp-row-main { min-width: 0; }
+.exp-row-top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 1rem; margin-bottom: .3rem;
+}
+.exp-row-role {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--ink); letter-spacing: 0;
+}
+.exp-row-period {
+  font-size: .73rem; color: var(--soft);
+  white-space: nowrap; font-weight: 500;
+  background: rgba(10,10,15,.06);
+  padding: .25rem .7rem; border-radius: 100px;
+}
+.exp-row-co {
+  font-size: .84rem; color: var(--red);
+  font-weight: 500; margin-bottom: 1.2rem;
+}
+
+.exp-ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.exp-ul li {
+  display: flex; gap: .7rem;
+  font-size: .87rem; color: var(--soft); line-height: 1.65;
+}
+.exp-ul li::before { content: '—'; color: var(--red); flex-shrink: 0; }
+
+.exp-chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+.ex-chip {
+  padding: .25rem .7rem; border-radius: 100px;
+  font-size: .7rem; font-weight: 600;
+}
+.ec-red  { background: rgba(232,38,26,.1);  color: var(--red); }
+.ec-gold { background: rgba(245,166,35,.12); color: #C47F00; }
+.ec-grey { background: rgba(10,10,15,.06);   color: var(--soft); }
+
+/* ╔═══════════════════════════════════════╗
+   ║  ABOUT                                ║
+   ╚═══════════════════════════════════════╝ */
+#about { background: var(--paper); }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  gap: 6rem; align-items: center;
+}
+
+.about-photo-col { position: relative; }
+.about-photo-wrap {
+  position: relative; border-radius: 12px; overflow: hidden;
+}
+.about-photo-wrap img {
+  width: 100%; display: block;
+  aspect-ratio: 4/5; object-fit: cover; object-position: top;
+  filter: grayscale(25%); transition: filter .5s;
+}
+.about-photo-wrap:hover img { filter: grayscale(0%); }
+
+.about-photo-label {
+  position: absolute; bottom: 1.5rem; left: 1.5rem;
+  background: var(--red); color: #fff;
+  padding: .45rem 1rem; border-radius: 100px;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+
+/* Red accent bar */
+.about-bar {
+  position: absolute; top: 10%; right: -10px;
+  width: 4px; height: 50%;
+  background: var(--red); border-radius: 4px;
+}
+
+.about-text {
+  font-size: .95rem; color: var(--soft);
+  line-height: 1.85; margin-bottom: 1.2rem;
+}
+
+.about-facts {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin: 2rem 0;
+}
+.af-item {
+  background: var(--mid); border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.af-val {
+  font-family: 'Playfair Display', serif; font-size: 1.4rem;
+  font-weight: 700; color: var(--ink);
+  letter-spacing: 0; line-height: 1.1;
+}
+.af-val em { color: var(--red); font-style: normal; }
+.af-lbl { font-size: .72rem; color: var(--soft); margin-top: .3rem; font-weight: 500; }
+
+.about-socs { display: flex; gap: .6rem; margin-top: .5rem; }
+.as-btn {
+  width: 38px; height: 38px; border-radius: 9px;
+  background: var(--mid); border: none;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--soft); text-decoration: none; font-size: 1.05rem;
+  transition: all .2s;
+}
+.as-btn:hover { background: var(--red); color: #fff; transform: translateY(-2px); }
+
+/* ╔═══════════════════════════════════════╗
+   ║  SKILLS                               ║
+   ╚═══════════════════════════════════════╝ */
+#skills { background: var(--ink); }
+#skills .sec-h { color: #fff; }
+#skills .sec-p { color: rgba(255,255,255,.4); }
+#skills .sec-eyebrow::before { background: var(--red); }
+
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px; overflow: hidden;
+  margin-top: 3rem;
+}
+.sk-group {
+  background: var(--ink); padding: 2rem 1.8rem;
+  transition: background .3s;
+}
+.sk-group:hover { background: #111; }
+
+.sk-group-icon {
+  width: 38px; height: 38px; border-radius: 9px;
+  background: rgba(232,38,26,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--red); margin-bottom: 1.1rem;
+}
+.sk-group-name {
+  font-family: 'Playfair Display', serif; font-weight: 800;
+  font-size: .9rem; color: #fff;
+  letter-spacing: -0.01em; margin-bottom: .9rem;
+}
+.sk-list { display: flex; flex-direction: column; gap: .4rem; }
+.sk-item {
+  font-size: .81rem; color: rgba(255,255,255,.4);
+  display: flex; align-items: center; gap: .5rem;
+  transition: color .2s;
+}
+.sk-item::before {
+  content: ''; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--red); flex-shrink: 0;
+}
+.sk-group:hover .sk-item { color: rgba(255,255,255,.65); }
+
+/* ╔═══════════════════════════════════════╗
+   ║  EDUCATION                            ║
+   ╚═══════════════════════════════════════╝ */
+#education { background: var(--paper); }
+
+.edu-flex { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+
+.edu-c {
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 2.2rem; background: #fff;
+  transition: transform .3s, box-shadow .3s;
+}
+.edu-c:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); }
+
+.edu-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(232,38,26,.08); color: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 1.3rem;
+}
+.edu-deg {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 1.05rem; color: var(--ink);
+  letter-spacing: 0; line-height: 1.3; margin-bottom: .3rem;
+}
+.edu-school { font-size: .85rem; color: var(--red); font-weight: 500; margin-bottom: 1rem; }
+.gpa-tag {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: rgba(232,38,26,.08);
+  border: 1px solid rgba(232,38,26,.15);
+  color: var(--red); padding: .28rem .75rem;
+  border-radius: 100px; font-size: .75rem; font-weight: 700;
+}
+.edu-meta { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+.edu-meta span {
+  font-size: .78rem; color: var(--muted);
+  display: flex; align-items: center; gap: .3rem;
+}
+
+/* ╔═══════════════════════════════════════╗
+   ║  CONTACT                              ║
+   ╚═══════════════════════════════════════╝ */
+#contact { background: var(--ink); overflow: hidden; position: relative; }
+
+.contact-bg-text {
+  position: absolute; bottom: -2rem; right: -1rem;
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(6rem, 16vw, 14rem);
+  letter-spacing: 0.01em; line-height: 1.1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,.04);
+  background-clip: text;
+  pointer-events: none; user-select: none;
+}
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center; position: relative; z-index: 1;
+}
+
+.contact-big {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  letter-spacing: -0.01em; line-height: 1.2;
+  color: #fff; margin-bottom: 1.5rem;
+}
+.contact-big em { color: var(--red); font-style: normal; }
+
+.contact-p { font-size: .95rem; color: rgba(255,255,255,.4); line-height: 1.8; margin-bottom: 2rem; }
+.contact-p span { color: rgba(255,255,255,.7); }
+
+.contact-avail {
+  display: flex; align-items: center; gap: .6rem;
+  font-size: .75rem; color: rgba(255,255,255,.35);
+  margin-bottom: 2.5rem; letter-spacing: .04em;
+}
+.ca-dot { width: 7px; height: 7px; border-radius: 50%; background: #22C55E; animation: hb 2s infinite; }
+
+.contact-links-list { display: flex; flex-direction: column; gap: .7rem; }
+.cl {
+  display: flex; align-items: center; gap: 1rem;
+  padding: .9rem 1.2rem; border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  text-decoration: none; color: #fff;
+  transition: all .2s;
+}
+.cl:hover { border-color: rgba(232,38,26,.5); transform: translateX(5px); color: #fff; text-decoration: none; }
+.cl:hover .cl-icon { background: var(--red); }
+.cl-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(232,38,26,.12); color: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0; transition: background .2s;
+}
+.cl:hover .cl-icon { color: #fff; }
+.cl-lbl { font-size: .68rem; color: rgba(255,255,255,.3); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; }
+.cl-val { font-size: .88rem; font-weight: 600; }
+
+/* Right side of contact */
+.contact-r-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 1.3rem; color: #fff; letter-spacing: 0; line-height: 1.3; margin-bottom: .6rem;
+}
+.contact-r-p { font-size: .88rem; color: rgba(255,255,255,.35); line-height: 1.7; margin-bottom: 2rem; }
+.contact-r-p b { color: rgba(255,255,255,.6); font-weight: 500; }
+
+.soc-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.sb2 {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .85rem 1rem; border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  text-decoration: none; color: rgba(255,255,255,.5);
+  font-size: .84rem; font-weight: 500; transition: all .2s;
+}
+.sb2:hover { border-color: rgba(232,38,26,.4); color: #fff; text-decoration: none; background: rgba(232,38,26,.06); }
+.sb2 i { font-size: 1.1rem; color: var(--red); }
+
+/* ╔═══════════════════════════════════════╗
+   ║  FOOTER                               ║
+   ╚═══════════════════════════════════════╝ */
+footer {
+  background: #050505; border-top: 1px solid rgba(255,255,255,.05);
+  padding: 2rem 5%;
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.ft-l {
+  font-family: 'Playfair Display', serif; font-weight: 800;
+  font-size: .95rem; color: #fff; letter-spacing: -0.02em;
+}
+.ft-l b { color: var(--red); }
+.ft-r { font-size: .78rem; color: rgba(255,255,255,.25); }
+.ft-r a { color: var(--red); text-decoration: none; }
+
+/* ╔═══════════════════════════════════════╗
+   ║  RESPONSIVE                           ║
+   ╚═══════════════════════════════════════╝ */
+@media (max-width: 1000px) {
+  #hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-r { height: 70vw; min-height: 380px; overflow: hidden; }
+  .hero-r > img#heroImg { object-position: center top; }
+  .hero-r-overlay { background: linear-gradient(to bottom, rgba(10,10,15,.6) 0%, transparent 50%); }
+  .hero-r-float { display: none; }
+  .hero-ghost { display: none; }
+  .n-links { display: none; }
+  .n-ham { display: flex; }
+  .work-grid { grid-template-columns: 1fr; }
+  .work-card-featured { grid-column: span 1; }
+  .exp-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .exp-left { position: static; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-photo-col { max-width: 360px; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .edu-flex { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+@media (max-width: 600px) {
+  .sec { padding: 5rem 5%; }
+  .hero-l { padding: 5rem 5% 3rem; }
+  .about-facts { grid-template-columns: 1fr 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .soc-grid2 { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PRELOADER ══ -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-name">
+      <span class="l-word">THARUN</span>&nbsp;
+      <span class="l-word l-red">REDDY</span>
+    </div>
+    <div class="loader-line"></div>
+  </div>
+</div>
+
+<!-- ══ CURSOR ══ -->
+<div id="cur"></div>
+<div id="cur-o"></div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <a href="#" class="n-logo">Tharun<b>.</b></a>
+  <ul class="n-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="n-cta">Hire Me <i class='bx bx-right-arrow-alt'></i></a></li>
+  </ul>
+  <div class="n-ham" id="ham" onclick="openMob()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+  <button class="mob-nav-close" onclick="closeMob()">✕</button>
+  <a href="#work"       onclick="closeMob()">Work</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#about"      onclick="closeMob()">About</a>
+  <a href="#education"  onclick="closeMob()">Education</a>
+  <a href="#contact"    onclick="closeMob()">Contact</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+
+  <!-- Left: content -->
+  <div class="hero-l">
+    <div class="hero-ghost" aria-hidden="true">TR</div>
+
+    <div class="hero-eyebrow" id="heroEye">
+      <div class="hero-eyebrow-dot"></div>
+      Available for new opportunities
+    </div>
+
+    <h1 class="hero-title" id="heroTitle">
+      DIGITAL<br>
+      <span class="t-out">MARKETER</span><span class="t-red">.</span><br>
+      CONTENT<br>
+      <span class="t-out">CREATOR</span><span class="t-red">.</span>
+    </h1>
+
+    <p class="hero-desc" id="heroDesc">
+      Tharun Reddy Ramigani — based in Thunder Bay, ON.
+      2+ years of paid campaigns, 120K+ subscribers grown organically,
+      and the technical skill to build what I market.
+    </p>
+
+    <div class="hero-ctas" id="heroCtas">
+      <a href="#work" class="btn-red">See My Work <i class='bx bx-right-arrow-alt'></i></a>
+      <a href="mailto:tharunreddyramigani@gmail.com" class="btn-ghost-w">Get in Touch</a>
+    </div>
+
+    <div class="hero-stats-bar" id="heroStats">
+      <div class="hs-item">
+        <div class="hs-num">120K<em>+</em></div>
+        <div class="hs-lbl">YouTube Subs</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num"><em>$</em>10K<em>/mo</em></div>
+        <div class="hs-lbl">Google Ad Grant</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">5–6<em>%</em></div>
+        <div class="hs-lbl">Avg CTR</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">19K<em>+</em></div>
+        <div class="hs-lbl">Instagram</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: photo -->
+  <div class="hero-r">
+    <img src="assets/img/profile1.jpg" alt="Tharun Reddy Ramigani"
+         id="heroImg">
+    <div class="hero-r-overlay"></div>
+    <div class="hero-r-tag">Thunder Bay, ON · Canada</div>
+    <div class="hero-r-float">
+      <img src="assets/img/profile4.jpg" alt="MSc Graduation">
+      <span>MSc Computer Science · Lakehead</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="tick-item"><div class="tick-sep"></div>120K<em>+</em>&nbsp;YouTube Subscribers</div>
+    <div class="tick-item"><div class="tick-sep"></div><em>$10K/month</em>&nbsp;Google Ad Grant</div>
+    <div class="tick-item"><div class="tick-sep"></div>5–6%&nbsp;Click-Through Rate</div>
+    <div class="tick-item"><div class="tick-sep"></div>500+&nbsp;Videos Published</div>
+    <div class="tick-item"><div class="tick-sep"></div>19K+&nbsp;Instagram Followers</div>
+    <div class="tick-item"><div class="tick-sep"></div>Meta Monetized&nbsp;<em>in 12 Months</em></div>
+    <div class="tick-item"><div class="tick-sep"></div>MSc Computer Science&nbsp;<em>GPA 89%</em></div>
+    <div class="tick-item"><div class="tick-sep"></div>Permanent Resident&nbsp;<em>of Canada</em></div>
+    <div class="tick-item"><div class="tick-sep"></div>120K<em>+</em>&nbsp;YouTube Subscribers</div>
+    <div class="tick-item"><div class="tick-sep"></div><em>$10K/month</em>&nbsp;Google Ad Grant</div>
+    <div class="tick-item"><div class="tick-sep"></div>5–6%&nbsp;Click-Through Rate</div>
+    <div class="tick-item"><div class="tick-sep"></div>500+&nbsp;Videos Published</div>
+    <div class="tick-item"><div class="tick-sep"></div>19K+&nbsp;Instagram Followers</div>
+    <div class="tick-item"><div class="tick-sep"></div>Meta Monetized&nbsp;<em>in 12 Months</em></div>
+    <div class="tick-item"><div class="tick-sep"></div>MSc Computer Science&nbsp;<em>GPA 89%</em></div>
+    <div class="tick-item"><div class="tick-sep"></div>Permanent Resident&nbsp;<em>of Canada</em></div>
+  </div>
+</div>
+
+<!-- ══ WORK ══ -->
+<section id="work" class="sec">
+  <div class="sec-inner">
+    <div class="work-head">
+      <div>
+        <div class="sec-eyebrow g-up">Selected Work</div>
+        <h2 class="sec-h g-up">Campaigns &<br>Projects</h2>
+      </div>
+      <p class="sec-p g-up" style="margin-bottom:0">
+        Real results from real campaigns — plus the builds behind them.
+      </p>
+    </div>
+
+    <div class="work-grid">
+
+      <!-- Card 1 — Featured, full width -->
+      <div class="work-card work-card-featured g-up">
+        <div class="wc-visual cv-1">
+          <div class="wc-big-num">01</div>
+          <div class="wc-metrics">
+            <div class="wc-m">
+              <div class="wc-m-val"><em>$10K</em>/mo</div>
+              <div class="wc-m-lbl">Budget Managed</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">5–6<em>%</em></div>
+              <div class="wc-m-lbl">Click-Through Rate</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">~10<em>%</em></div>
+              <div class="wc-m-lbl">Conversion Rate</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">50<em>+</em></div>
+              <div class="wc-m-lbl">Ad Variants</div>
+            </div>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-cat">Google Ads · Meta Ads · Web Development</div>
+          <div class="wc-title">Community Clothing Assistance — Full Digital Transformation</div>
+          <p class="wc-desc">
+            Took a Thunder Bay nonprofit from no digital presence to a fully-managed $10K/month Google Ad Grant program, a custom-built referral portal, and Meta-monetized social channels — all built and managed in-house. CTR and conversion rates consistently exceeded nonprofit industry benchmarks by 3–4×.
+          </p>
+          <div class="wc-footer">
+            <div class="wc-tags">
+              <span class="wc-tag">Google Ads</span>
+              <span class="wc-tag">Meta Ads</span>
+              <span class="wc-tag">Web Dev</span>
+              <span class="wc-tag">Video Production</span>
+            </div>
+            <span class="wc-year">2023 – Present</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="work-card g-up">
+        <div class="wc-visual cv-2">
+          <div class="wc-big-num">02</div>
+          <div class="wc-metrics">
+            <div class="wc-m">
+              <div class="wc-m-val">120K<em>+</em></div>
+              <div class="wc-m-lbl">Subscribers</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">500<em>+</em></div>
+              <div class="wc-m-lbl">Videos</div>
+            </div>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-cat">Content Strategy · YouTube · Organic Growth</div>
+          <div class="wc-title">@tharunramigani — YouTube Channel Growth</div>
+          <p class="wc-desc">
+            Built a lifestyle YouTube channel to 120,000+ subscribers with 500+ videos — millions of views, 100% organic. Owned the full pipeline: ideation, scripting, filming, editing, thumbnails, and publishing cadence.
+          </p>
+          <div class="wc-footer">
+            <div class="wc-tags">
+              <span class="wc-tag">YouTube</span>
+              <span class="wc-tag">CapCut</span>
+              <span class="wc-tag">Adobe Premiere</span>
+            </div>
+            <span class="wc-year">2020 – Present</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="work-card g-up">
+        <div class="wc-visual cv-3">
+          <div class="wc-big-num">03</div>
+          <div class="wc-metrics">
+            <div class="wc-m">
+              <div class="wc-m-val"><em>3×</em></div>
+              <div class="wc-m-lbl">Engagement Rate</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">45K<em>+</em></div>
+              <div class="wc-m-lbl">Instagram Reach</div>
+            </div>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-cat">Social Media · Reels · Content Calendar</div>
+          <div class="wc-title">Thunder Bay Travel Co. — Instagram Growth Campaign</div>
+          <p class="wc-desc">
+            Took a local travel group's Instagram from stagnant to a 3× engagement spike through a structured Reels strategy, content calendar, and caption writing tailored to the travel audience.
+          </p>
+          <div class="wc-footer">
+            <div class="wc-tags">
+              <span class="wc-tag">Instagram</span>
+              <span class="wc-tag">Reels</span>
+              <span class="wc-tag">Canva</span>
+            </div>
+            <span class="wc-year">2023 – 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="work-card g-up">
+        <div class="wc-visual cv-4">
+          <div class="wc-big-num">04</div>
+          <div class="wc-metrics">
+            <div class="wc-m">
+              <div class="wc-m-val"><em>240%</em></div>
+              <div class="wc-m-lbl">ROAS</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">4.8<em>%</em></div>
+              <div class="wc-m-lbl">CTR</div>
+            </div>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-cat">Meta Ads · Ad Copywriting · Creative Strategy</div>
+          <div class="wc-title">StyleHouse Fashion — Meta Ads Campaign</div>
+          <p class="wc-desc">
+            Designed and ran Meta ad campaigns for a clothing brand — writing all creative, ad copy, and running A/B tests across audiences. Delivered 240% ROAS over a 3-month campaign period.
+          </p>
+          <div class="wc-footer">
+            <div class="wc-tags">
+              <span class="wc-tag">Meta Ads</span>
+              <span class="wc-tag">A/B Testing</span>
+              <span class="wc-tag">Copywriting</span>
+            </div>
+            <span class="wc-year">2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="work-card g-up">
+        <div class="wc-visual cv-5">
+          <div class="wc-big-num">05</div>
+          <div class="wc-metrics">
+            <div class="wc-m">
+              <div class="wc-m-val">19K<em>+</em></div>
+              <div class="wc-m-lbl">Instagram Followers</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">12<em>mo</em></div>
+              <div class="wc-m-lbl">to Monetized</div>
+            </div>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-cat">Instagram · Reels · Brand Building</div>
+          <div class="wc-title">Personal Brand — Instagram Growth to Monetization</div>
+          <p class="wc-desc">
+            Grew personal Instagram to 19,000+ followers through consistent short-form video output — Reels strategy, viral hooks, and retention-first editing. Monetized under Meta's program within 12 months.
+          </p>
+          <div class="wc-footer">
+            <div class="wc-tags">
+              <span class="wc-tag">Instagram</span>
+              <span class="wc-tag">Short-form Video</span>
+              <span class="wc-tag">Meta Monetized</span>
+            </div>
+            <span class="wc-year">2023 – Present</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="work-card g-up">
+        <div class="wc-visual cv-6">
+          <div class="wc-big-num">06</div>
+          <div class="wc-metrics">
+            <div class="wc-m">
+              <div class="wc-m-val"><em>5</em> Brands</div>
+              <div class="wc-m-lbl">Designed for</div>
+            </div>
+            <div class="wc-m">
+              <div class="wc-m-val">Logo<em>+</em></div>
+              <div class="wc-m-lbl">Full Brand Kit</div>
+            </div>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-cat">Brand Identity · Logo Design · Canva · Photoshop</div>
+          <div class="wc-title">Restaurant & Retail Branding — Multi-Client</div>
+          <p class="wc-desc">
+            Delivered logo design, menu design, and full brand graphics for restaurants, clothing brands, and online retailers. Each project included a full brand kit: logo, color palette, typography, and social templates.
+          </p>
+          <div class="wc-footer">
+            <div class="wc-tags">
+              <span class="wc-tag">Logo Design</span>
+              <span class="wc-tag">Photoshop</span>
+              <span class="wc-tag">Canva</span>
+            </div>
+            <span class="wc-year">2023 – 2024</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience" class="sec">
+  <div class="sec-inner">
+    <div class="exp-layout">
+
+      <!-- Sticky left -->
+      <div class="exp-left">
+        <div class="sec-eyebrow g-up">Experience</div>
+        <h2 class="sec-h g-up">Where I've<br>Worked</h2>
+        <p class="sec-p g-up" style="margin-top:.8rem">
+          Three roles — one thread: owning the full marketing stack from strategy to execution.
+        </p>
+      </div>
+
+      <!-- Scrolling right -->
+      <div class="exp-right">
+        <div class="exp-rows">
+
+          <div class="exp-row g-up">
+            <div class="exp-row-num">01</div>
+            <div class="exp-row-main">
+              <div class="exp-row-top">
+                <div class="exp-row-role">IT & Marketing Coordinator</div>
+                <span class="exp-row-period">2023 – Present</span>
+              </div>
+              <div class="exp-row-co">Community Clothing Assistance (Nonprofit) · Thunder Bay, ON</div>
+              <ul class="exp-ul">
+                <li>Manage a <strong>$10,000/month Google Ad Grant</strong> — 50+ ad variants, delivering 5–6% CTR and ~10% conversion rate, well above nonprofit benchmarks.</li>
+                <li>Launched Facebook and Instagram from zero; grew both to Meta-monetized status in 12 months — content now generates recurring revenue for the org.</li>
+                <li>Plan, shoot, edit, and publish short-form video end-to-end: ideation, on-camera, post-production in CapCut and Adobe Premiere.</li>
+                <li>Built the org's website and a custom referral portal connecting partner businesses with the nonprofit.</li>
+                <li>Report on campaign performance via Google Analytics and Meta Business Suite.</li>
+              </ul>
+              <div class="exp-chips">
+                <span class="ex-chip ec-red">$10K/mo Ad Grant</span>
+                <span class="ex-chip ec-gold">5–6% CTR</span>
+                <span class="ex-chip ec-gold">~10% Conversion</span>
+                <span class="ex-chip ec-grey">Google Analytics</span>
+                <span class="ex-chip ec-grey">Meta Monetized</span>
+                <span class="ex-chip ec-grey">Custom Web Portal</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-row g-up">
+            <div class="exp-row-num">02</div>
+            <div class="exp-row-main">
+              <div class="exp-row-top">
+                <div class="exp-row-role">Freelance Digital Marketer & Content Creator</div>
+                <span class="exp-row-period">2023 – Present</span>
+              </div>
+              <div class="exp-row-co">Multiple Clients · Remote</div>
+              <ul class="exp-ul">
+                <li>Social media management and graphic design for a travel group — Reels, static posts, and captions aligned to each campaign's angle.</li>
+                <li>Full content strategy, short-form video, and day-to-day posting for a personal-brand business.</li>
+                <li>Logo, menu, and brand graphics for restaurants, clothing brands, and online retailers using Canva and Photoshop.</li>
+                <li>Ad copy and social captions tailored to each client's audience, tone, and platform.</li>
+              </ul>
+              <div class="exp-chips">
+                <span class="ex-chip ec-red">Brand Design</span>
+                <span class="ex-chip ec-red">Ad Copywriting</span>
+                <span class="ex-chip ec-grey">Social Management</span>
+                <span class="ex-chip ec-grey">Reels Production</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-row g-up">
+            <div class="exp-row-num">03</div>
+            <div class="exp-row-main">
+              <div class="exp-row-top">
+                <div class="exp-row-role">Content Creator — YouTube & Instagram</div>
+                <span class="exp-row-period">Ongoing</span>
+              </div>
+              <div class="exp-row-co">@tharunramigani · Lifestyle / Vlog</div>
+              <ul class="exp-ul">
+                <li>Built YouTube to <strong>120,000+ subscribers</strong> with 500+ videos — millions of views, 100% organic.</li>
+                <li>Grew Instagram to <strong>19,000+ followers</strong> through consistent Reels strategy.</li>
+                <li>Specialize in viral hooks, retention-first editing, and short-form video — the skill set Reels, TikTok, and Shorts demand.</li>
+                <li>Own every step: ideation → scripting → filming → editing → publishing.</li>
+              </ul>
+              <div class="exp-chips">
+                <span class="ex-chip ec-gold">120K+ Subscribers</span>
+                <span class="ex-chip ec-gold">19K+ Instagram</span>
+                <span class="ex-chip ec-grey">500+ Videos</span>
+                <span class="ex-chip ec-grey">100% Organic</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about" class="sec">
+  <div class="sec-inner">
+    <div class="about-grid">
+
+      <div class="about-photo-col g-fade">
+        <div class="about-photo-wrap">
+          <img src="assets/img/profile2.jpg" alt="Tharun Reddy Ramigani">
+          <div class="about-photo-label">Thunder Bay, ON · PR Canada</div>
+        </div>
+        <div class="about-bar"></div>
+      </div>
+
+      <div>
+        <div class="sec-eyebrow g-up">About Me</div>
+        <h2 class="sec-h g-up">The Person<br>Behind the Numbers</h2>
+        <p class="about-text g-up">
+          I'm Tharun — a digital marketer with a computer science background, which means I think in data
+          but create with instinct. I manage ad budgets, shoot videos, build websites, and report on all of
+          it. Not because I have to — because I genuinely love seeing a campaign come together and deliver.
+        </p>
+        <p class="about-text g-up">
+          Currently based in Thunder Bay, ON as a Permanent Resident of Canada. Open to roles in digital
+          marketing, content strategy, social media management, or growth marketing — in person or remote.
+        </p>
+
+        <div class="about-facts g-up">
+          <div class="af-item">
+            <div class="af-val">2<em>+</em></div>
+            <div class="af-lbl">Years in Paid Media</div>
+          </div>
+          <div class="af-item">
+            <div class="af-val">89<em>%</em></div>
+            <div class="af-lbl">MSc GPA — Lakehead</div>
+          </div>
+          <div class="af-item">
+            <div class="af-val">500<em>+</em></div>
+            <div class="af-lbl">Videos Published</div>
+          </div>
+          <div class="af-item">
+            <div class="af-val">6<em>+</em></div>
+            <div class="af-lbl">Clients Served</div>
+          </div>
+        </div>
+
+        <div class="about-socs g-up">
+          <a href="https://www.linkedin.com/in/tharunreddyr/" target="_blank" class="as-btn"><i class='bx bxl-linkedin'></i></a>
+          <a href="https://www.youtube.com/@tharunramigani" target="_blank" class="as-btn"><i class='bx bxl-youtube'></i></a>
+          <a href="https://www.instagram.com/tharun._reddy_/" target="_blank" class="as-btn"><i class='bx bxl-instagram'></i></a>
+          <a href="mailto:tharunreddyramigani@gmail.com" class="as-btn"><i class='bx bx-envelope'></i></a>
+          <a href="https://www.github.com/R-TharunReddy" target="_blank" class="as-btn"><i class='bx bxl-github'></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills" class="sec">
+  <div class="sec-inner">
+    <div class="sec-eyebrow g-up">Skills & Tools</div>
+    <h2 class="sec-h g-up">What I Bring</h2>
+    <p class="sec-p g-up">The full stack — from strategy and copy to cameras and code.</p>
+
+    <div class="skills-grid">
+
+      <div class="sk-group g-up">
+        <div class="sk-group-icon"><i class='bx bx-trending-up'></i></div>
+        <div class="sk-group-name">Paid Media</div>
+        <div class="sk-list">
+          <div class="sk-item">Google Ads (Search, Display)</div>
+          <div class="sk-item">Meta Ads Manager</div>
+          <div class="sk-item">Facebook Business Suite</div>
+          <div class="sk-item">A/B Testing</div>
+          <div class="sk-item">Ad Copywriting</div>
+          <div class="sk-item">Campaign Optimization</div>
+        </div>
+      </div>
+
+      <div class="sk-group g-up">
+        <div class="sk-group-icon"><i class='bx bx-bar-chart-alt-2'></i></div>
+        <div class="sk-group-name">Analytics & Reporting</div>
+        <div class="sk-list">
+          <div class="sk-item">Google Analytics</div>
+          <div class="sk-item">Meta Business Insights</div>
+          <div class="sk-item">YouTube Studio</div>
+          <div class="sk-item">Conversion Tracking</div>
+          <div class="sk-item">Performance Reporting</div>
+          <div class="sk-item">CTR & ROAS Analysis</div>
+        </div>
+      </div>
+
+      <div class="sk-group g-up">
+        <div class="sk-group-icon"><i class='bx bx-video'></i></div>
+        <div class="sk-group-name">Video & Content</div>
+        <div class="sk-list">
+          <div class="sk-item">CapCut</div>
+          <div class="sk-item">Adobe Premiere Pro</div>
+          <div class="sk-item">Short-form Storytelling</div>
+          <div class="sk-item">Viral Hook Writing</div>
+          <div class="sk-item">Thumbnail Design</div>
+          <div class="sk-item">On-camera Presence</div>
+        </div>
+      </div>
+
+      <div class="sk-group g-up">
+        <div class="sk-group-icon"><i class='bx bx-palette'></i></div>
+        <div class="sk-group-name">Design & Brand</div>
+        <div class="sk-list">
+          <div class="sk-item">Canva</div>
+          <div class="sk-item">Adobe Photoshop</div>
+          <div class="sk-item">Logo & Menu Design</div>
+          <div class="sk-item">Social Media Graphics</div>
+          <div class="sk-item">Content Calendars</div>
+          <div class="sk-item">Brand Identity Kits</div>
+        </div>
+      </div>
+
+      <div class="sk-group g-up">
+        <div class="sk-group-icon"><i class='bx bx-code-alt'></i></div>
+        <div class="sk-group-name">Web Development</div>
+        <div class="sk-list">
+          <div class="sk-item">HTML, CSS, JavaScript</div>
+          <div class="sk-item">React</div>
+          <div class="sk-item">Bootstrap</div>
+          <div class="sk-item">SEO Optimization</div>
+          <div class="sk-item">Payment API Integration</div>
+          <div class="sk-item">Custom Portals</div>
+        </div>
+      </div>
+
+      <div class="sk-group g-up">
+        <div class="sk-group-icon"><i class='bx bx-brain'></i></div>
+        <div class="sk-group-name">AI & Tools</div>
+        <div class="sk-list">
+          <div class="sk-item">Prompt Engineering</div>
+          <div class="sk-item">Claude & Gemini</div>
+          <div class="sk-item">Nano Banana</div>
+          <div class="sk-item">Sadance 2.0</div>
+          <div class="sk-item">Artlist.io</div>
+          <div class="sk-item">Google Workspace</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ══ -->
+<section id="education" class="sec">
+  <div class="sec-inner">
+    <div class="sec-eyebrow g-up">Education</div>
+    <h2 class="sec-h g-up">Academic<br>Background</h2>
+    <p class="sec-p g-up">A CS foundation that sharpens every marketing decision I make.</p>
+
+    <div class="edu-flex">
+      <div class="edu-c g-up">
+        <div class="edu-icon"><i class='bx bxs-graduation'></i></div>
+        <div class="edu-deg">Master of Science, Computer Science</div>
+        <div class="edu-school">Lakehead University — Thunder Bay, ON</div>
+        <div class="gpa-tag"><i class='bx bx-star'></i>&nbsp;GPA: 89%</div>
+        <div class="edu-meta">
+          <span><i class='bx bx-calendar'></i> 2023 – 2025</span>
+          <span><i class='bx bx-map'></i> Thunder Bay, Canada</span>
+        </div>
+      </div>
+      <div class="edu-c g-up">
+        <div class="edu-icon"><i class='bx bxs-book-open'></i></div>
+        <div class="edu-deg">Bachelor of Science, Computer Science</div>
+        <div class="edu-school">Chennai, India</div>
+        <div class="edu-meta">
+          <span><i class='bx bx-calendar'></i> 2019 – 2023</span>
+          <span><i class='bx bx-map'></i> Chennai, India</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="sec">
+  <div class="sec-inner">
+    <div class="contact-bg-text" aria-hidden="true">LET'S<br>TALK.</div>
+    <div class="contact-grid">
+
+      <div>
+        <div class="sec-eyebrow g-up" style="color:rgba(255,255,255,.4)">
+          <span style="background:var(--red);display:inline-block;width:20px;height:1.5px;margin-right:.6rem;vertical-align:middle"></span>
+          Contact
+        </div>
+        <h2 class="contact-big g-up">Let's build<br>something<br><em>great.</em></h2>
+        <p class="contact-p g-up">
+          Ads, content, strategy, or web builds — I've got the full stack covered.
+          <span>Let's talk about what results look like for your brand.</span>
+        </p>
+        <div class="contact-avail g-up">
+          <div class="ca-dot"></div>
+          Available now — Thunder Bay, ON & Remote
+        </div>
+        <div class="contact-links-list g-up">
+          <a href="mailto:tharunreddyramigani@gmail.com" class="cl">
+            <div class="cl-icon"><i class='bx bx-envelope'></i></div>
+            <div>
+              <div class="cl-lbl">Email</div>
+              <div class="cl-val">tharunreddyramigani@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/tharunreddyr/" target="_blank" class="cl">
+            <div class="cl-icon"><i class='bx bxl-linkedin'></i></div>
+            <div>
+              <div class="cl-lbl">LinkedIn</div>
+              <div class="cl-val">linkedin.com/in/tharunreddyr</div>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/@tharunramigani" target="_blank" class="cl">
+            <div class="cl-icon"><i class='bx bxl-youtube'></i></div>
+            <div>
+              <div class="cl-lbl">YouTube</div>
+              <div class="cl-val">@tharunramigani · 120K+ subscribers</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="g-up">
+        <div class="contact-r-title">Based in Canada.<br>Working worldwide.</div>
+        <p class="contact-r-p">
+          <b>Permanent Resident of Canada</b> — legally eligible to work anywhere in Canada.
+          Open to in-person (Thunder Bay), hybrid, or fully remote roles.
+        </p>
+        <div class="soc-grid2">
+          <a href="https://www.linkedin.com/in/tharunreddyr/" target="_blank" class="sb2"><i class='bx bxl-linkedin'></i> LinkedIn</a>
+          <a href="https://www.youtube.com/@tharunramigani" target="_blank" class="sb2"><i class='bx bxl-youtube'></i> YouTube</a>
+          <a href="https://www.instagram.com/tharun._reddy_/" target="_blank" class="sb2"><i class='bx bxl-instagram'></i> Instagram</a>
+          <a href="https://www.github.com/R-TharunReddy" target="_blank" class="sb2"><i class='bx bxl-github'></i> GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="ft-l">Tharun<b>.</b></div>
+  <div class="ft-r">Digital Marketer & Content Creator · Thunder Bay, ON · <a href="mailto:tharunreddyramigani@gmail.com">tharunreddyramigani@gmail.com</a></div>
+</footer>
+
+<!-- ══ SCRIPTS ══ -->
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── PRELOADER ── */
+const tl = gsap.timeline({ onComplete: initPage });
+tl.to('.l-word', { y: '0%', duration: .7, stagger: .12, ease: 'power4.out' })
+  .to('.loader-line', { width: 200, duration: .8, ease: 'power2.inOut' }, '-=.3')
+  .to('#loader', { yPercent: -100, duration: .7, ease: 'power3.in', delay: .25 })
+  .set('#loader', { display: 'none' });
+
+function initPage() {
+  /* Hero reveals */
+  gsap.to('#heroEye',   { opacity:1, duration:.6, ease:'power2.out' });
+  gsap.to('#heroTitle', { opacity:1, y:0, duration:.9, ease:'power3.out', delay:.1 });
+  gsap.to('#heroDesc',  { opacity:1, duration:.7, ease:'power2.out', delay:.3 });
+  gsap.to('#heroCtas',  { opacity:1, duration:.7, ease:'power2.out', delay:.45 });
+  gsap.to('#heroStats', { opacity:1, duration:.7, ease:'power2.out', delay:.6 });
+  gsap.to('#heroImg',   { opacity:1, duration:1,  ease:'power2.out', delay:.2 });
+}
+
+/* ── SCROLL REVEAL ── */
+gsap.utils.toArray('.g-up').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity:0, y:40 },
+    { opacity:1, y:0, duration:.8, ease:'power3.out',
+      scrollTrigger:{ trigger:el, start:'top 90%', once:true },
+      delay: (i % 3) * .08 }
+  );
+});
+
+gsap.utils.toArray('.g-fade').forEach(el => {
+  gsap.fromTo(el,
+    { opacity:0 },
+    { opacity:1, duration:.9, ease:'power2.out',
+      scrollTrigger:{ trigger:el, start:'top 88%', once:true } }
+  );
+});
+
+gsap.utils.toArray('.g-left').forEach(el => {
+  gsap.fromTo(el,
+    { opacity:0, x:-30 },
+    { opacity:1, x:0, duration:.8, ease:'power3.out',
+      scrollTrigger:{ trigger:el, start:'top 88%', once:true } }
+  );
+});
+
+/* ── CUSTOM CURSOR ── */
+const cd = document.getElementById('cur');
+const co = document.getElementById('cur-o');
+let mx=0,my=0,ox=0,oy=0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cd.style.left = mx+'px'; cd.style.top = my+'px';
+});
+
+(function lerp(){
+  ox += (mx-ox)*.1; oy += (my-oy)*.1;
+  co.style.left = ox+'px'; co.style.top = oy+'px';
+  requestAnimationFrame(lerp);
+})();
+
+document.querySelectorAll('a,button,.work-card,.exp-row').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+/* ── NAV ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('s', window.scrollY > 60);
+});
+
+/* ── MOBILE NAV ── */
+function openMob(){ document.getElementById('mobNav').classList.add('on'); }
+function closeMob(){ document.getElementById('mobNav').classList.remove('on'); }
+</script>
+</body>
+</html>

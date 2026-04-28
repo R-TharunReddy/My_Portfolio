@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"c:\\\\Users\\\\User\\\\Downloads\\\\My_Portfolio-main\\\\My_Portfolio-main\\\\assets\\\\img\\\\\" | Where-Object { $_.Name -match \"profile|WhatsApp\" } | Select-Object Name)"
+    ]
+  }
+}
